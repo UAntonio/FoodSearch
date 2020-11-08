@@ -7,8 +7,9 @@ This is a simple Food Search app that will retrieve recipes from any typ of food
 
 # Status
 In Progress
-Search only has Chiken items and does not update on new searches
-Grid system in order for items to look cleaner. 
+- Search only has Chiken items and does not update on new searches
+- Grid system in order for items to look cleaner. 
+
 
 ## Available Scripts
 
