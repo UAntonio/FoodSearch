@@ -1,6 +1,14 @@
-# Getting Started with Create React App
+# Details
+This is a simple Food Search app that will retrieve recipes from any typ of food item that is searched.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+# Images
+
+
+# Status
+In Progress
+Search only has Chiken items and does not update on new searches
+Grid system in order for items to look cleaner. 
 
 ## Available Scripts
 
