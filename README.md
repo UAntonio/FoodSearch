@@ -1,79 +1,165 @@
-# Details
-This is a simple Food Search app that will retrieve recipes from any typ of food item that is searched.
+
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
+[![LinkedIn][linkedin-shield]][linkedin-url]
 
 
-# Images
+
+<!-- PROJECT LOGO -->
+<br />
+<p align="center">
+  <a href="https://github.com/UAntonio/FoodSearch">
+    <img src="images/logo.png" alt="Logo" width="80" height="80">
+  </a>
+
+  <h3 align="center">Food Finder</h3>
+
+  <p align="center">
+    This is a Food Finder application that searches meals with a specefic ingredient that was searched for. 
+    <br />
+    <a href="https://github.com/UAntonio/FoodSearch"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://uriel-antonio.tech/">View WebPage</a>
+    ·
+    <a href="https://github.com/UAntonio/FoodSearch/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/UAntonio/FoodSearch/issues">Request Feature</a>
+  </p>
+</p>
 
 
-# Status
-In Progress
-- Search only has Chiken items and does not update on new searches
-- Grid system in order for items to look cleaner. 
+
+<!-- TABLE OF CONTENTS -->
+<details open="open">
+  <summary><h2 style="display: inline-block">Table of Contents</h2></summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#acknowledgements">Acknowledgements</a></li>
+  </ol>
+</details>
 
 
-## Available Scripts
 
-In the project directory, you can run:
+<!-- ABOUT THE PROJECT -->
+## About The Project
 
-### `npm start`
+[![Product Name Screen Shot][product-screenshot]](https://uriel-antonio.tech)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+This is using the API from [edaman](https://www.edamam.com/) to receive the recipes. 
+### Built With
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+* [React](https://reactjs.org/)
+* []()
+* []()
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+<!-- GETTING STARTED -->
+## Getting Started
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+To get a local copy up and running follow these simple steps.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Prerequisites
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+* npm
+  ```sh
+  npm install npm@latest -g
+  ```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+<!-- Installation to be updated to Docker-->
+### Installation
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. Clone the repo
+   ```sh
+   git clone https://github.com/UAntonio/FoodSearch.git
+   ```
+2. Install NPM packages
+   ```sh
+   npm install
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+<!-- ROADMAP -->
+## Roadmap
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+See the [open issues](https://github.com/UAntonio/FoodSearch/issues) for a list of proposed features (and known issues).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+<!-- CONTRIBUTING -->
+## Contributing
 
-### Analyzing the Bundle Size
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-### Advanced Configuration
+<!-- LICENSE -->
+## License
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Distributed under the MIT License. See `LICENSE` for more information.
 
-### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### `npm run build` fails to minify
+<!-- CONTACT -->
+## Contact
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Uriel Antonio - uantonio@csumb.edu
+
+Project Link: [https://github.com/UAntonio/FoodSearch](https://github.com/UAntonio/FoodSearch)
+
+
+
+<!-- ACKNOWLEDGEMENTS -->
+## Acknowledgements
+
+* [Material Kit React](https://github.com/devias-io/material-kit-react)
+* [othneildrew](https://github.com/othneildrew/Best-README-Template)
+* []()
+
+
+
+
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[contributors-shield]: https://img.shields.io/github/contributors/UAntonio/FoodSearch.svg?style=for-the-badge
+[contributors-url]: https://github.com/UAntonio/FoodSearch/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/UAntonio/FoodSearch.svg?style=for-the-badge
+[forks-url]: https://github.com/UAntonio/FoodSearch/network/members
+[stars-shield]: https://img.shields.io/github/stars/UAntonio/FoodSearch.svg?style=for-the-badge
+[stars-url]: https://github.com/UAntonio/FoodSearch/stargazers
+[issues-shield]: https://img.shields.io/github/issues/UAntonio/FoodSearch.svg?style=for-the-badge
+[issues-url]: https://github.com/UAntonio/FoodSearch/issues
+[license-shield]: https://img.shields.io/github/license/UAntonio/FoodSearch.svg?style=for-the-badge
+[license-url]: https://github.com/UAntonio/repo/blob/master/LICENSE.txt
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://linkedin.com/in/urielantonio
+[product-screenshot]: images/screenshot.png
