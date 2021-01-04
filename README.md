@@ -140,7 +140,6 @@ Project Link: [https://github.com/UAntonio/FoodSearch](https://github.com/UAnton
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
 
-* [Material Kit React](https://github.com/devias-io/material-kit-react)
 * [othneildrew](https://github.com/othneildrew/Best-README-Template)
 * []()
 
