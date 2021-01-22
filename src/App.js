@@ -1,6 +1,4 @@
 import React,{useEffect, useState} from "react";
-import RecipeGrid from './recipegrid';
-import Recipe from './recipe';
 import './App.css';
 
 
@@ -49,7 +47,7 @@ const App = () =>{
       {/* <RecipeGrid
       recipesData = {recipesData}
       /> */}
-      <div className = "recipes">
+      {/* <div className = "recipes">
         {recipesData.map(data =>(
           <Recipe 
           key= {data.recipe.label}
@@ -62,7 +60,7 @@ const App = () =>{
           totalPercentage = {data.recipe.totalDaily}
           />
         ))};
-        </div>
+        </div> */}
         
            Icons made by <a href="https://www.flaticon.com/authors/pause08" title="Pause08">Pause08</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
     </div>
