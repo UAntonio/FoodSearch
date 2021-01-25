@@ -1,81 +1,154 @@
-import React, { handleClick, useState } from "react";
-import style from './recipe.module.css'
-import ReactCardFlip from 'react-card-flip';
-import { AgGridColumn, AgGridReact } from 'ag-grid-react';
+import React, { useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
+import CardHeader from "@material-ui/core/CardHeader";
+import CardContent from "@material-ui/core/CardContent";
+import CardActions from "@material-ui/core/CardActions";
+import Avatar from "@material-ui/core/Avatar";
+import Typography from "@material-ui/core/Typography";
 
-import 'ag-grid-community/dist/styles/ag-grid.css';
-import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import ReactCardFlip from "react-card-flip";
 
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    borderRadius: 10,
+    margin: 20,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-around",
+    alignitems: "center",
+    minwWidth: "40%",
+  },
+  media: {
+    height: 0,
+    paddingTop: "56.25%", // 16:9
+  },
+  expand: {
+    transform: "rotate(0deg)",
+    marginLeft: "auto",
+    transition: theme.transitions.create("transform", {
+      duration: theme.transitions.duration.shortest,
+    }),
+  },
+  expandOpen: {
+    transform: "rotate(180deg)",
+  },
+  list: {
+    width: "100%",
+    maxWidth: 360,
+    backgroundColor: theme.palette.background.paper,
+  },
+  table: {
+    minWidth: 200,
+  },
+  recipe:{
+    borderRadius: 10,
+    margin: 20,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-around",
+    alignitems: "center",
+    minwWidth: "40%",
+},
+image:{
+    borderRadius: "50%",
+    width: 100,
+    height: 100,
 
+},
+dietLabels:{
+    height: 60,
 
-class RecipeCard extends React.Component {
-    constructor({ title, calories, image, ingredients, dietLabels,totalNutrients,totalPercentage }) {
-        super();
+},
+ingredients:{
+    width: "80%",
+    display: "flex",
+    justifyContent: "left",
+    alignItems: "center",
+},
+caloriesCard:{
 
-var nutrients = [];
+}
+
+}));
+
+export default function RecipeCard({ title, ingredients, calories, image,totalNutrients }) {
+  const classes = useStyles();
+
+  const [isFlipped, setisFlipped] = useState(false);
+
+  const handleClick = () => {
+    setisFlipped(!isFlipped);
+  };
+
+  var nutrients = [];
 for(var NutrientsKey in totalNutrients){
     if(totalNutrients.hasOwnProperty(NutrientsKey)){
         nutrients.push(totalNutrients[NutrientsKey]);
     }
 }
+  //remove duplicate data and add numbers
 
-        this.state = {
-            isFlipped: false,
-            title: title,
-            calories: calories,
-            image: image,
-            ingredients: ingredients,
-            dietLabels: dietLabels,
-            rowData: nutrients
-        };
-        this.handleClick = this.handleClick.bind(this);
-    }
+  return (
+    <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
+      <Card className={classes.root}>
+        <CardHeader title={title} subheader="subheader" />{" "}
+        <CardActions onClick={handleClick}>
+          <CardContent className={classes.ingredients}>
+            <List className={classes.list}>
+              {ingredients.map((ingredient) => (
+                <ListItem key={ingredient}>
+                  <ListItemText primary={ingredient.text}></ListItemText>/
+                </ListItem>
+              ))}
+            </List>
+            <Typography>{calories}</Typography>
+            <Avatar src={image} />
+          </CardContent>
+        </CardActions>
+      </Card>
 
-    handleClick(e) {
-        e.preventDefault();
-        this.setState(prevState => ({ isFlipped: !prevState.isFlipped }));
-    }
-
-    render() {
-        return (
-            <ReactCardFlip isFlipped={this.state.isFlipped} flipDirection="horizontal">
-                <div className={style.recipe} onClick={this.handleClick} >
-                    <h1>{this.state.title}</h1>
-                    {this.state.dietLabels.map(label => (
-                        <h2 className={style.dietLabels}>{label}</h2>
-                    ))}
-
-                    <ol>
-                        {this.state.ingredients.map(ingredient => (
-                            <li className={style.ingredients}>{ingredient.text}</li>
-                        ))}
-                    </ol>
-                    <p>{this.state.calories}</p>
-                    <img className={style.image} src={this.state.image} alt="" />
-
-
-                </div>
-
-
-                <div className={style.caloriesCard} onClick={this.handleClick}>
-                    <h1>{this.state.title}</h1>
-                    <h1>Nutrients Facts</h1>
-                    <div className="ag-theme-alpine" style={ { height: 400, width: 600 } }>
-            <AgGridReact
-                rowData={this.state.rowData}>
-                <AgGridColumn field="label"></AgGridColumn>
-                <AgGridColumn field="quantity"></AgGridColumn>
-                <AgGridColumn field="unit"></AgGridColumn>
-            </AgGridReact>
-        </div>
-
-                </div>
-
-            </ReactCardFlip>
-        )
-    }
+      <Card>
+        <CardActions onClick={handleClick}>
+          <CardContent>
+            <TableContainer component={Paper}>
+              <Table className={classes.table} aria-label="simple table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>{title}</TableCell>
+                    <TableCell align="right">Label</TableCell>
+                    <TableCell align="right">Quantity</TableCell>
+                    <TableCell align="right">unit</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {nutrients.map((row) => (
+                    <TableRow key={row.name}>
+                      <TableCell component="th" scope="row">
+                        {row.name}
+                      </TableCell>
+                      <TableCell align="right">{row.label}</TableCell>
+                      <TableCell align="right">{row.quantity}</TableCell>
+                      <TableCell align="right">{row.unit}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </CardContent>
+        </CardActions>
+      </Card>
+    </ReactCardFlip>
+  );
 }
-
-
-export default RecipeCard;
