@@ -1,12 +1,5 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardHeader from "@material-ui/core/CardHeader";
-import CardContent from "@material-ui/core/CardContent";
-import CardActions from "@material-ui/core/CardActions";
-import Avatar from "@material-ui/core/Avatar";
-import Typography from "@material-ui/core/Typography";
-import Collapse from "@material-ui/core/Collapse";
 import clsx from "clsx";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -20,7 +13,16 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import { CardMedia, IconButton } from "@material-ui/core";
+import {
+  CardMedia,
+  IconButton,
+  Collapse,
+  Typography,
+  CardHeader,
+  CardContent,
+  Card,
+  CardActions,
+} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -109,15 +111,23 @@ export default function RecipeCard({
       nutrients.push(totalNutrients[NutrientsKey]);
     }
   }
-  //remove duplicate data and add numbers
-  for(var ingredient in ingredients){
-    console.log(ingredient)
-  }
+
+  //Add Numbers to the Ingredients
+  var numberedIngredients = ingredients.map(function (value, index) {
+    var counter = index + 1;
+    return counter + ": " + value.replace("/", "");
+  });
+
   return (
     <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
       <Card className={classes.root}>
         <CardActions onClick={handleClick}>
-          <CardHeader title={title} subheader={"Calories: " + totalCalories +"\t Servings: " + servings}/>
+          <CardHeader
+            title={title}
+            subheader={
+              "Calories: " + totalCalories + "\t Servings: " + servings
+            }
+          />
         </CardActions>
         <CardMedia className={classes.media} image={image} title={title} />
         <IconButton
@@ -135,15 +145,12 @@ export default function RecipeCard({
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent className={classes.ingredients}>
             <List className={classes.list}>
-              {ingredients.map((ingredient) => (
+              {numberedIngredients.map((ingredient) => (
                 <ListItem key={ingredient}>
-                  <ListItemText primary={ingredient}></ListItemText>/
+                  <ListItemText primary={ingredient}></ListItemText>
                 </ListItem>
               ))}
             </List>
-          </CardContent>
-          <CardContent>
-            <Typography>{ingredients}</Typography>
           </CardContent>
         </Collapse>
       </Card>
