@@ -8,6 +8,10 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import api from './utils/api';
+import Brightness4Icon from '@material-ui/icons/Brightness4';
+import Switch from "@material-ui/core/Switch";
+import { IconButton } from "@material-ui/core";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -47,6 +51,19 @@ const App = () => {
   const [search, setSearch] = useState("");
   const [query, setQuery] = useState("Chicken");
 
+  const [darkState, setDarkState] = useState(false);
+  const palletType = darkState ? "dark" : "light";
+  console.log(darkState);
+  const darkTheme = createMuiTheme({
+    palette: {
+      type: palletType,
+    }
+  });
+  const handleThemeChange = () => {
+    setDarkState(!darkState);
+  };
+  
+
   useEffect(() => {
 
     const GetRecipes = async () => {
@@ -71,11 +88,17 @@ const App = () => {
   const classes = useStyles();
   return (
     <div>
+       <ThemeProvider theme={darkTheme}>
       <AppBar position="static" classes = {classes.root}>
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
             Food Search
           </Typography>
+          <Switch checked={darkState} onChange={handleThemeChange} />
+
+          <IconButton color="inherit" onChange={handleThemeChange}>
+            <Brightness4Icon/>
+          </IconButton>
           <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>
@@ -111,7 +134,8 @@ const App = () => {
           www.flaticon.com
         </a>
       </Container>
-    </div>
+      </ThemeProvider>
+    </div >
   );
 };
 
