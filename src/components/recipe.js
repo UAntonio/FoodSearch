@@ -13,6 +13,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import {
   CardMedia,
   IconButton,
@@ -22,52 +23,14 @@ import {
   CardContent,
   Card,
   CardActions,
+  TablePagination
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    // borderRadius: 10,
-    // margin: 20,
-    // display: "flex",
-    // flexDirection: "column",
-    // justifyContent: "space-around",
-    // alignitems: "center",
-    // maxHeight: "35%"
   },
   expandOpen: {
     transform: "rotate(180deg)",
-  },
-  list: {
-    // width: "100%",
-    // maxWidth: 360,
-    // backgroundColor: theme.palette.background.paper,
-  },
-  table: {
-    minWidth: 150,
-    maxWidth: 100,
-  },
-  recipe: {
-    // borderRadius: 10,
-    // margin: 20,
-    // display: "flex",
-    // flexDirection: "column",
-    // justifyContent: "space-around",
-    // alignitems: "center",
-    // minwWidth: "40%",
-  },
-  image: {
-    borderRadius: "50%",
-    width: 100,
-    height: 100,
-  },
-  dietLabels: {
-    height: 60,
-  },
-  ingredients: {
-    // width: "80%",
-    // display: "flex",
-    // justifyContent: "left",
-    // alignItems: "center",
   },
   caloriesCard: {},
   media: {
@@ -97,6 +60,18 @@ export default function RecipeCard({
   const [expanded, setExpanded] = React.useState(false);
   const totalCalories = Math.round(calories / servings);
 
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
+
   const handleClick = () => {
     setisFlipped(!isFlipped);
   };
@@ -121,14 +96,20 @@ export default function RecipeCard({
   return (
     <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
       <Card className={classes.root}>
-        <CardActions onClick={handleClick}>
+
           <CardHeader
             title={title}
             subheader={
               "Calories: " + totalCalories + "\t Servings: " + servings
             }
+            action={
+              <IconButton aria-label="settings" onClick={handleClick}>
+                          <Typography>Nutrients</Typography>
+                <NavigateNextIcon />
+              </IconButton>
+            }
           />
-        </CardActions>
+
         <CardMedia className={classes.media} image={image} title={title} />
         <IconButton
           className={clsx(classes.expand, {
@@ -156,34 +137,44 @@ export default function RecipeCard({
       </Card>
 
       <Card>
-        <CardActions onClick={handleClick}>
+      <CardActions onClick={handleClick}>
+      <CardHeader
+            title={title}
+          />
+                  </CardActions>
           <CardContent>
+            <Paper>
             <TableContainer component={Paper}>
-              <Table className={classes.table} aria-label="simple table">
+              <Table stickyHeader className={classes.table}  size="small" aria-label="simple table">
                 <TableHead>
                   <TableRow>
-                    <TableCell>{title}</TableCell>
-                    <TableCell align="right">Label</TableCell>
+                    <TableCell >Label</TableCell>
                     <TableCell align="right">Quantity</TableCell>
-                    <TableCell align="right">unit</TableCell>
+                    <TableCell align="right">Unit</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {nutrients.map((row) => (
+                  {nutrients.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
                     <TableRow key={row.name}>
-                      <TableCell component="th" scope="row">
-                        {row.name}
-                      </TableCell>
-                      <TableCell align="right">{row.label}</TableCell>
-                      <TableCell align="right">{row.quantity}</TableCell>
+                      <TableCell >{row.label}</TableCell>
+                      <TableCell align="right">{Math.round(row.quantity)}</TableCell>
                       <TableCell align="right">{row.unit}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
               </Table>
             </TableContainer>
+            <TablePagination
+        rowsPerPageOptions={[5, 10, 25, 50]}
+        component="div"
+        count={nutrients.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onChangePage={handleChangePage}
+        onChangeRowsPerPage={handleChangeRowsPerPage}
+      />
+      </Paper>
           </CardContent>
-        </CardActions>
       </Card>
     </ReactCardFlip>
   );

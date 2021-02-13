@@ -14,7 +14,7 @@ export default function RecipeGrid({ recipesData }) {
     <Grid className={classes.root} spacing={3}>
       <Grid container spacing={2} alignItems="stretch">
         {recipesData.map((data) => (
-          <Grid item xs={3} s={6} m={4} l={3} spacing={3}>
+          <Grid item xs={12} sm={6} md={4} lg={3} spacing={3}>
             <Recipe
               key={data.recipe.label}
               title={data.recipe.label}
