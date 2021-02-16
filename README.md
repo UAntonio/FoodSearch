@@ -18,7 +18,7 @@
   <h3 align="center">Food Finder</h3>
 
   <p align="center">
-    This is a Food Finder application that searches meals with a specefic ingredient that was searched for. 
+    This is a Food Finder application that searches meals with a specefic ingredient that was searched for using Netlify functions for the backend to call the api. 
     <br />
     <a href="https://github.com/UAntonio/FoodSearch"><strong>Explore the docs »</strong></a>
     <br />
@@ -65,11 +65,11 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://uriel-antonio.tech)
 
-This is using the API from [edaman](https://www.edamam.com/) to receive the recipes. 
+This is using the API from [edaman](https://www.edamam.com/) to receive the recipes.
 ### Built With
 
 * [React](https://reactjs.org/)
-* []()
+* [Netlify Functions](https://docs.netlify.com/functions/configure-and-deploy/)
 * []()
 
 
@@ -98,7 +98,14 @@ To get a local copy up and running follow these simple steps.
    ```sh
    npm install
    ```
-
+3. start netlify
+```sh
+netlify init
+```
+4. Start application
+```sh
+netlify dev
+```
 
 
 <!-- ROADMAP -->
