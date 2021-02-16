@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import RecipeGrid from "./components/recipegrid";
+import RecipeResults from "./components/recipeResults";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -8,6 +8,16 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import api from './utils/api';
+import Brightness4Icon from '@material-ui/icons/Brightness4';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { IconButton } from "@material-ui/core";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import {
+  orange,
+  lightBlue,
+  deepPurple,
+  deepOrange
+} from "@material-ui/core/colors";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -47,11 +57,32 @@ const App = () => {
   const [search, setSearch] = useState("");
   const [query, setQuery] = useState("Chicken");
 
+  const [darkState, setDarkState] = useState(false);
+  const palletType = darkState ? "dark" : "light";
+
+  const mainPrimaryColor = darkState ? orange[500] : lightBlue[500];
+  const mainSecondaryColor = darkState ? deepOrange[900] : deepPurple[500];
+ 
+  const darkTheme = createMuiTheme({
+    palette: {
+      type: palletType,
+      primary: {
+        main: mainPrimaryColor
+      },
+      secondary: {
+        main: mainSecondaryColor
+      }
+    }
+  });
+  const handleThemeChange = () => {
+    setDarkState(!darkState);
+  };
+  
+
   useEffect(() => {
 
     const GetRecipes = async () => {
       api.fetchRecipes(`?query=${query}`).then((response)=>{
-        console.log("last: " + response.details.hits);
         setRecipesData(response.details.hits);
       })
     };
@@ -64,18 +95,22 @@ const App = () => {
 
   const getSearch = (e) => {
     e.preventDefault();
-    console.log(e.target.value);
     setQuery(search);
     setSearch("");
   };
   const classes = useStyles();
   return (
     <div>
+       <ThemeProvider theme={darkTheme}>
+         <CssBaseline/>
       <AppBar position="static" classes = {classes.root}>
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
             Food Search
           </Typography>
+          <IconButton color="inherit" onClick={handleThemeChange}>
+            <Brightness4Icon/>
+          </IconButton>
           <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>
@@ -84,7 +119,7 @@ const App = () => {
           onSubmit={getSearch}
           noValidate
           autoComplete="off"
-          onChangeCapture={updateSearch}
+          onChange={updateSearch}
           className={classes.form}
         >
           <TextField
@@ -98,7 +133,7 @@ const App = () => {
           </Button>
         </form>
         {recipesData.length > 0 ? (
-          <RecipeGrid recipesData={recipesData} />
+          <RecipeResults recipesData={recipesData} />
         ) : null}
         
         Icons made by{" "}
@@ -111,7 +146,8 @@ const App = () => {
           www.flaticon.com
         </a>
       </Container>
-    </div>
+      </ThemeProvider>
+    </div >
   );
 };
 
