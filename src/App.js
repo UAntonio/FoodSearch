@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import RecipeGrid from "./components/recipegrid";
+import RecipeResults from "./components/recipeResults";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -59,7 +59,7 @@ const App = () => {
 
   const [darkState, setDarkState] = useState(false);
   const palletType = darkState ? "dark" : "light";
-  console.log(darkState);
+
   const mainPrimaryColor = darkState ? orange[500] : lightBlue[500];
   const mainSecondaryColor = darkState ? deepOrange[900] : deepPurple[500];
  
@@ -83,7 +83,6 @@ const App = () => {
 
     const GetRecipes = async () => {
       api.fetchRecipes(`?query=${query}`).then((response)=>{
-        console.log("last: " + response.details.hits);
         setRecipesData(response.details.hits);
       })
     };
@@ -96,7 +95,6 @@ const App = () => {
 
   const getSearch = (e) => {
     e.preventDefault();
-    console.log(e.target.value);
     setQuery(search);
     setSearch("");
   };
@@ -121,7 +119,7 @@ const App = () => {
           onSubmit={getSearch}
           noValidate
           autoComplete="off"
-          onChangeCapture={updateSearch}
+          onChange={updateSearch}
           className={classes.form}
         >
           <TextField
@@ -135,7 +133,7 @@ const App = () => {
           </Button>
         </form>
         {recipesData.length > 0 ? (
-          <RecipeGrid recipesData={recipesData} />
+          <RecipeResults recipesData={recipesData} />
         ) : null}
         
         Icons made by{" "}

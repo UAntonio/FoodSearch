@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme) => ({
   root: {},
 }));
 
-export default function RecipeGrid({ recipesData }) {
+export default function RecipeResults({ recipesData }) {
   const classes = useStyles();
 
   return (
