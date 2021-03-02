@@ -23,7 +23,7 @@ export default function FavoritesPage(props) {
 
   useEffect(() => {
     getFavorites()
-  }, [])
+  }, )
 
   return (
     <Container>

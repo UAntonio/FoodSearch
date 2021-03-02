@@ -8,20 +8,6 @@ const fetchRecipes= (query)=>{
     })
 }
 
-const authlogin = async googleData => {
-    const res =  await fetch(`/.netlify/functions/auth-google`, {
-        method: "POST",
-        body: JSON.stringify({
-        token: googleData?.tokenId
-      }),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-    const data = await res.json()
-    // store returned user somehow
-}
-
 
 /* Api methods to call /functions */
 
@@ -73,8 +59,7 @@ const batchDeleteFavorites = (favoriteIds) => {
 
 
 export default{
-    fetchRecipes,
-    authlogin, 
+    fetchRecipes, 
     create: create,
     readAll: readAll,
     update: update,

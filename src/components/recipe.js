@@ -26,7 +26,6 @@ import {
   TablePagination,
 } from "@material-ui/core";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import FavoriteIcon from "@material-ui/icons/Favorite";
 import api from "../utils/api";
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
