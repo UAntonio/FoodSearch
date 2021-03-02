@@ -1,5 +1,5 @@
-const faunadb = require('faunadb')
-const getId = require('./utils/getId')
+import faunadb from 'faunadb';
+import getId from './utils/getId';
 const q = faunadb.query
 
 exports.handler = (event, context) => {
