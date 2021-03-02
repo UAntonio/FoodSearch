@@ -1,6 +1,5 @@
 /* Import faunaDB sdk */
-import faunadb from 'faunadb';
-import getId from './utils/getId';
+const getId = require('./utils/getId')
 const q = faunadb.query
 
 exports.handler = async (event, context) => {

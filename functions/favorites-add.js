@@ -1,5 +1,5 @@
 /* Import faunaDB sdk */
-import faunadb from 'faunadb';
+const faunadb = require('faunadb')
 const q = faunadb.query
 
 /* export our lambda function as named "handler" export */
