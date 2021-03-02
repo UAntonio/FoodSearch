@@ -13,7 +13,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import {
   CardMedia,
   IconButton,
@@ -23,12 +23,15 @@ import {
   CardContent,
   Card,
   CardActions,
-  TablePagination
+  TablePagination,
 } from "@material-ui/core";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import api from "../utils/api";
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-  },
+  root: {},
   expandOpen: {
     transform: "rotate(180deg)",
   },
@@ -46,14 +49,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function RecipeCard({
-  title,
-  ingredients,
-  servings,
-  calories,
-  image,
-  totalNutrients,
-}) {
+export default function RecipeCard(props) {
+  const {
+    title,
+    ingredients,
+    servings,
+    calories,
+    image,
+    totalNutrients,
+    link,
+    user
+  } = props;
   const classes = useStyles();
 
   const [isFlipped, setisFlipped] = useState(false);
@@ -93,22 +99,65 @@ export default function RecipeCard({
     return counter + ": " + value.replace("/", "");
   });
 
+  const saveFavorite = (e) => {
+    if(!user){
+      handleInvalidClick()
+      return 
+    }
+    const userId = user.uid;
+    const favoriteInfo = {
+      title: title,
+      link: link,
+      comment: "I like the Recipe!!",
+      userId: userId,
+    };
+
+    // Make API request to create new todo
+    api
+      .create(favoriteInfo)
+      .then((response) => {
+        handleValidFavorites();
+        console.log(response);
+      })
+      .catch((e) => {
+        console.log("An API error occurred", e);
+      });
+  };
+
+  function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
+  const [invalidOpen, setInvalidOpen] = useState(false);
+  const [validOpen, setValidOpen] = useState(false);
+
+  const handleInvalidClick = () => {
+    setInvalidOpen(true);
+  };
+  const handleValidFavorites =() =>{
+    setValidOpen(true);
+  }
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setInvalidOpen(false);
+    setValidOpen(false);
+  };
   return (
+    <>
     <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
       <Card className={classes.root}>
-
-          <CardHeader
-            title={title}
-            subheader={
-              "Calories: " + totalCalories + "\t Servings: " + servings
-            }
-            action={
-              <IconButton aria-label="settings" onClick={handleClick}>
-                          <Typography>Nutrients</Typography>
-                <NavigateNextIcon />
-              </IconButton>
-            }
-          />
+        <CardHeader
+          title={title}
+          subheader={"Calories: " + totalCalories + "\t Servings: " + servings}
+          action={
+            <IconButton aria-label="settings" onClick={handleClick}>
+              <Typography>Nutrients</Typography>
+              <NavigateNextIcon />
+            </IconButton>
+          }
+        />
 
         <CardMedia className={classes.media} image={image} title={title} />
         <IconButton
@@ -121,6 +170,9 @@ export default function RecipeCard({
         >
           <Typography>Ingredients</Typography>
           <ExpandMoreIcon />
+        </IconButton>
+        <IconButton onClick={saveFavorite}>
+          <FavoriteBorderIcon />
         </IconButton>
 
         <Collapse in={expanded} timeout="auto" unmountOnExit>
@@ -137,45 +189,63 @@ export default function RecipeCard({
       </Card>
 
       <Card>
-      <CardActions onClick={handleClick}>
-      <CardHeader
-            title={title}
-          />
-                  </CardActions>
-          <CardContent>
-            <Paper>
+        <CardActions onClick={handleClick}>
+          <CardHeader title={title} />
+        </CardActions>
+        <CardContent>
+          <Paper>
             <TableContainer component={Paper}>
-              <Table stickyHeader className={classes.table}  size="small" aria-label="simple table">
+              <Table
+                stickyHeader
+                className={classes.table}
+                size="small"
+                aria-label="simple table"
+              >
                 <TableHead>
                   <TableRow>
-                    <TableCell >Label</TableCell>
+                    <TableCell>Label</TableCell>
                     <TableCell align="right">Quantity</TableCell>
                     <TableCell align="right">Unit</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {nutrients.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
-                    <TableRow key={row.name}>
-                      <TableCell >{row.label}</TableCell>
-                      <TableCell align="right">{Math.round(row.quantity)}</TableCell>
-                      <TableCell align="right">{row.unit}</TableCell>
-                    </TableRow>
-                  ))}
+                  {nutrients
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((row) => (
+                      <TableRow key={row.name}>
+                        <TableCell>{row.label}</TableCell>
+                        <TableCell align="right">
+                          {Math.round(row.quantity)}
+                        </TableCell>
+                        <TableCell align="right">{row.unit}</TableCell>
+                      </TableRow>
+                    ))}
                 </TableBody>
               </Table>
             </TableContainer>
             <TablePagination
-        rowsPerPageOptions={[5, 10, 25, 50]}
-        component="div"
-        count={nutrients.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onChangePage={handleChangePage}
-        onChangeRowsPerPage={handleChangeRowsPerPage}
-      />
-      </Paper>
-          </CardContent>
+              rowsPerPageOptions={[5, 10, 25, 50]}
+              component="div"
+              count={nutrients.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onChangePage={handleChangePage}
+              onChangeRowsPerPage={handleChangeRowsPerPage}
+            />
+          </Paper>
+        </CardContent>
       </Card>
     </ReactCardFlip>
+    <Snackbar open={validOpen} autoHideDuration={6000} onClose={handleClose}>
+  <Alert onClose={handleClose} severity="success">
+    Favorites Has been saved!
+  </Alert>
+</Snackbar>
+<Snackbar open={invalidOpen} autoHideDuration={6000} onClose={handleClose}>
+  <Alert onClose={handleClose} severity="error">
+    Please log in to save favorite details!
+  </Alert>
+</Snackbar>
+    </>
   );
 }
