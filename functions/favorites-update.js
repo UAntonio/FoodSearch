@@ -1,5 +1,7 @@
 import faunadb from 'faunadb';
 import getId from './utils/getId';
+import encoding from "encoding";
+require('encoding')
 const q = faunadb.query
 
 exports.handler = (event, context) => {

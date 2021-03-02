@@ -1,5 +1,6 @@
 /* Import faunaDB sdk */
 import faunadb from 'faunadb';
+import encoding from "encoding";
 const q = faunadb.query
 
 /* export our lambda function as named "handler" export */
